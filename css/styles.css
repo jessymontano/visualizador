@@ -1,0 +1,192 @@
+@font-face {
+    font-family: pixellari;
+    src: url(../fonts/pixellari.woff);
+}
+
+body {
+    background-image: url(../img/mesa.jpg);
+    background-size: auto;
+    text-align: center;
+    font-family: pixellari, sans-serif;
+    display: flex;
+}
+
+table {
+    border-collapse: collapse;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    margin: 2vh;
+    width: 40vw;
+    height: 40vw;
+    min-width: 600px;
+    min-height: 600px;
+}
+
+tr,
+td {
+    border: none;
+}
+
+td.celda {
+    background-image: none;
+    height: 11%;
+    width: 11%;
+}
+
+td.jaque-b {
+    background: url(../img/normal/rey-b.png), radial-gradient(red, rgba(0, 0, 0, 0));
+    background-size: cover;
+}
+
+td.jaque-n {
+    background: url(../img/normal/rey-n.png), radial-gradient(red, rgba(0, 0, 0, 0));
+    background-size: cover;
+}
+
+td.peon-n {
+    background-image: url(../img/normal/peon-n.png);
+    background-size: cover;
+}
+
+td.peon-b {
+    background-image: url(../img/normal/peon-b.png);
+    background-size: cover;
+}
+
+td.caballo-b {
+    background-image: url(../img/normal/caballo-b.png);
+    background-size: cover;
+}
+
+td.caballo-n {
+    background-image: url(../img/normal/caballo-n.png);
+    background-size: cover;
+}
+
+td.torre-b {
+    background-image: url(../img/normal/torre-b.png);
+    background-size: cover;
+}
+
+td.torre-n {
+    background-image: url(../img/normal/torre-n.png);
+    background-size: cover;
+}
+
+td.alfil-b {
+    background-image: url(../img/normal/alfil-b.png);
+    background-size: cover;
+}
+
+td.alfil-n {
+    background-image: url(../img/normal/alfil-n.png);
+    background-size: cover;
+}
+
+td.rey-b {
+    background-image: url(../img/normal/rey-b.png);
+    background-size: cover;
+}
+
+td.rey-n {
+    background-image: url(../img/normal/rey-n.png);
+    background-size: cover;
+}
+
+td.reina-b {
+    background-image: url(../img/normal/reina-b.png);
+    background-size: cover;
+}
+
+td.reina-n {
+    background-image: url(../img/normal/reina-n.png);
+    background-size: cover;
+}
+
+tr:nth-child(even) td:nth-child(odd),
+tr:nth-child(odd) td:nth-child(even) {
+    background-color: #d2a46b;
+}
+
+tr:nth-child(odd) td:nth-child(odd),
+tr:nth-child(even) td:nth-child(even) {
+    background-color: #f4e7d1;
+}
+
+td:first-child,
+td:last-child,
+tr:first-child>td,
+tr:last-child>td {
+    background-color: #72422e !important;
+    color: wheat;
+}
+
+div {
+    display: block;
+    float: left;
+}
+div#botones{
+    margin-left: 6vw;
+}
+
+textarea {
+    display: flex;
+    margin: 2vh;
+    margin-left: 5vw;
+    resize: none;
+    height: 70vh;
+}
+
+button,
+select, label {
+    margin-top: 1vh;
+    padding: 1vh;
+    font-family: pixellari, sans-serif;
+    font-size: large;
+    cursor: pointer;
+    border-radius: 1vh;
+    border: none;
+    margin-left: 1vh;
+    background-color:rgb(175, 106, 53);
+    color:#fef4e7;
+}
+
+button:hover,
+select:hover, label:hover{
+    background-color: #87472c;
+    color: white;
+}
+
+input[type=file] {
+    position: absolute;
+    top: -1000px;
+}
+
+@media only screen and (max-width: 920px) {
+    body{
+        display:block;
+    }
+
+    div{
+        float:none;
+        width:90%;
+        justify-content: center;
+    }
+
+    table{
+        width: 90vw;
+        height: 90vw;
+        min-width: 90vw;
+        min-height: 90vw;
+        margin: 7vh auto;
+    }
+
+    p{
+        font-size: x-large;
+        margin-top: 7vh;
+    }
+
+    td.celda{
+        height: 10%;
+        width: 10%;
+    }
+}
