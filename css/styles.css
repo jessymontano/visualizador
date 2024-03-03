@@ -11,6 +11,17 @@ body {
     display: flex;
 }
 
+p{
+    width: 30vw;
+    margin-left: 10vw;
+    margin-top: 4vh;
+    background-color: rgba(246, 158, 25, 0.749);
+    border-radius: 1vh;
+    padding: 5vh;
+    color:#fff8ee;
+    font-size: x-large;
+}
+
 table {
     border-collapse: collapse;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
@@ -121,8 +132,7 @@ tr:last-child>td {
 }
 
 div {
-    display: block;
-    float: left;
+    display: inline-block;
 }
 div#botones{
     margin-left: 6vw;
@@ -133,7 +143,17 @@ textarea {
     margin: 2vh;
     margin-left: 5vw;
     resize: none;
-    height: 70vh;
+    height: 40vh;
+    font-family: pixellari, sans-serif;
+    background-color: #f4e7d1;
+    border: none;
+    padding: 2vh;
+    border-radius: 1vh;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+textarea:focus{
+    outline: none;
 }
 
 button,
@@ -141,13 +161,14 @@ select, label {
     margin-top: 1vh;
     padding: 1vh;
     font-family: pixellari, sans-serif;
-    font-size: large;
+    font-size: x-large;
     cursor: pointer;
     border-radius: 1vh;
     border: none;
     margin-left: 1vh;
     background-color:rgb(175, 106, 53);
     color:#fef4e7;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 button:hover,
