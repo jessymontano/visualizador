@@ -65,7 +65,7 @@ function pasos() {
     .getElementById("js-texto")
     .value.replace(/\d+\.\s*/g, "")
     .split(/\s+/);
-  
+
   var pieza = "";
 
   //texto de movimiento
@@ -78,6 +78,7 @@ function pasos() {
   pieza = checarPieza(tokens[i]);
   posicion = limpiarTokens(tokens[i]);
 
+  //TODO: promocion de peon
   if (pieza == "enroque") {
     switch (tokens[i]) {
       case "O-O":
@@ -128,7 +129,6 @@ function pasos() {
         break;
     }
   } else {
-
     //poner al rey rojo si está en jaque
     if (checarJaque(tokens[i]) || checarJaqueMate(tokens[i])) {
       var rey = document.querySelector(".rey" + (turno ? "-n" : "-b"));
@@ -148,7 +148,13 @@ function pasos() {
 
     if (posicion.length > 2) {
       //checar si la posición incluye alguna columna o renglon extra
-      moverPiezaAmbigua(tablero, pieza, turno, posicion, checarSiCome(tokens[i]));
+      moverPiezaAmbigua(
+        tablero,
+        pieza,
+        turno,
+        posicion,
+        checarSiCome(tokens[i])
+      );
       posicion = posicion.slice(1);
     } else {
       moverPieza(tablero, turno, pieza, posicion, checarSiCome(tokens[i]));
@@ -257,6 +263,10 @@ function checarJaqueMate(token) {
   return token.endsWith("#");
 }
 
+function checarPromoción(token) {
+  return token.includes("=");
+}
+
 //regresar coordenadas del movimiento sin los caracteres extra
 function limpiarTokens(token) {
   return token.replace(/x|[A-Z]|[\+#]+/g, "");
@@ -279,27 +289,39 @@ function moverPiezaAmbigua(tablero, pieza, turno, posicion, come) {
   var celda = tablero.rows[renglon].cells[columna];
   var renglonOrigen;
   var columnaOrigen;
-  const origenes = obtenerOrigenes(tablero, pieza, turno, renglon, columna, come);
+  const origenes = obtenerOrigenes(
+    tablero,
+    pieza,
+    turno,
+    renglon,
+    columna,
+    come
+  );
   var color = turno ? "-b" : "-n"; //si es turno de las blancas -b, si es turno de las negras -n
   var origen = null;
 
-  if (/^\d/.test(posicion)){
+  if (/^\d/.test(posicion)) {
     renglonOrigen = 9 - parseInt(posicion.slice(0, 1));
-    origenes.forEach(posibleOrigen => {
+    origenes.forEach((posibleOrigen) => {
       //checar si el posible origen está en el mismo renglón que el del movimiento
-      if (posibleOrigen[1] == renglonOrigen && !fueraDelTablero(posibleOrigen)) {
+      if (
+        posibleOrigen[1] == renglonOrigen &&
+        !fueraDelTablero(posibleOrigen)
+      ) {
         origen = tablero.rows[posibleOrigen[1]].cells[posibleOrigen[0]];
         if (origen.classList.contains(pieza + color)) {
           origen.classList.remove(pieza + color);
         }
       }
     });
-  }
-  else if (/^[a-zA-Z]/.test(posicion)){
-    columnaOrigen = parseInt(convertirLetraANumero(posicion.slice(0,1))) + 1;
-    origenes.forEach(posibleOrigen => {
+  } else if (/^[a-zA-Z]/.test(posicion)) {
+    columnaOrigen = parseInt(convertirLetraANumero(posicion.slice(0, 1))) + 1;
+    origenes.forEach((posibleOrigen) => {
       //checar si el posible origen está en la misma columna que la del movimiento
-      if (posibleOrigen[0] == columnaOrigen && !fueraDelTablero(posibleOrigen)) {
+      if (
+        posibleOrigen[0] == columnaOrigen &&
+        !fueraDelTablero(posibleOrigen)
+      ) {
         origen = tablero.rows[posibleOrigen[1]].cells[posibleOrigen[0]];
         if (origen.classList.contains(pieza + color)) {
           origen.classList.remove(pieza + color);
@@ -329,7 +351,7 @@ function moverPieza(tablero, turno, pieza, posicion, come) {
 
   var eliminada = false; //checar si una pieza ya fue eliminada
   var origen = null;
-  
+
   //por cada posible origen, elegir el mas probable
   origenes.forEach((coordenadasOrigen) => {
     if (!fueraDelTablero(coordenadasOrigen)) {
@@ -350,7 +372,7 @@ function moverPieza(tablero, turno, pieza, posicion, come) {
 function obtenerOrigenes(tablero, pieza, turno, renglon, columna, come) {
   //objeto que contiene los posibles origenes de cada tipo de pieza
   const origenes = {
-    caballo : [
+    caballo: [
       [columna - 2, renglon + 1],
       [columna - 1, renglon + 2],
       [columna + 2, renglon + 1],
@@ -565,6 +587,12 @@ function partidas() {
       break;
     case "3":
       textarea.value = `1. d4 Nf6\n2. Nc3 d5\n3. Bg5 Nbd7\n4. Nf3 h6\n5. Bh4 g5\n6. Bg3 Bg7\n7. e3 O-O\n8. Bd3 c5\n9. Ne5 c4\n10. Bf5 e6\n11. Bg4 Nxg4\n12. Nxg4 f5\n13. Nxh6+ Bxh6\n14. Qh5 Qf6\n15. h4 g4\n16. O-O-O a6\n17. f3 Bxe3+\n18. Kb1 Bxd4\n19. fxg4 Bxc3\n20. bxc3 f4\n21. Bf2 Qxc3\n22. Bd4 Qb4+\n23. Ka1 Nf6\n24. Qg6+ Kh8\n25. Bxf6+ Rxf6\n26. Qxf6+ Kg8\n27. h5 Qf8\n28. Qe5 Bd7\n29. h6 Kh7\n30. Rdf1 Qh8\n31. Qxh8+ Rxh8\n32. Rxf4 Kg6\n33. Rhf1 Rxh6\n34. Rf6+ Kg5\n35. Rxh6 Kxh6\n36. Rf7 Bc6\n37. Re7 Kg5\n38. Rxe6 Kxg4\n39. Rg6+ Kf5\n40. Rg7 d4\n41. g4+ Kf6\n42. Rg8 d3\n43. cxd3 cxd3\n44. Kb2 Kf7\n45. Rd8 Be4\n46. Rd4 Bf3\n47. Rxd3 Bxg4\n48. Rb3 Bc8\n49. Rc3 Bd7\n50. Rc7 Ke6\n51. Rxb7 Kd6\n52. Rb6+ Kc5\n53. Rxa6 Kb5\n54. Rh6 Ka5\n55. Rh4 Be6\n56. a3 Bd5\n57. Rh5 Ka4\n58. Kc3 Kxa3\n59. Rxd5 Ka4\n60. Rc5 Ka3\n61. Ra5#`;
+      break;
+    case "4":
+      textarea.value = `1. e4 e5\n2. Nf3 Nc6\n3. Bb5 a6\n4. Bxc6 dxc6\n5. O-O Bg4\n6. h3 h5\n7. hxg4 hxg4\n8. Nh2 Qh4\n9. f3 g3\n10. Re1 Qxh2+\n11. Kf1 Qh1+\n12. Ke2 Qxg2+\n13. Kd3 O-O-O+\n14. Kc3 Qf2\n15. d3 Qd4+\n16. Kd2 Rh2+\n17. Re2 g2\n18. c3 Qxd3+\n19. Ke1 g1=Q#`;
+      break;
+    case "5":
+      textarea.value = `1. e4 e5\n2. Nf3 Nc6\n3. Bb5 a6\n4. Bxc6 dxc6\n5. d4 exd4\n6. Qxd4 Qxd4\n7. Nxd4 Nf6\n8. O-O Bc5\n9. Nb3 Bb6\n10. Nc3 O-O\n11. Bg5 Re8\n12. Bxf6 gxf6\n13. Rad1 f5\n14. Rfe1 fxe4\n15. Nxe4 Kg7\n16. Nbc5 Bxc5\n17. Nxc5 Rxe1+\n18. Rxe1 b6\n19. Nd3 Be6\n20. a3 Rd8\n21. Re3 c5\n22. Rg3+ Kf6\n23. h4 Rd4\n24. h5 Rh4\n25. Rf3+ Kg5\n26. Rg3+ Kxh5\n27. Ne5 Re4\n28. Nf3 Re2\n29. Rg5+ Kh6\n30. Rg8 Rxc2\n31. g4 f6\n32. g5+ fxg5\n33. Rxg5 Rxb2\n34. Rg3 Rb3\n35. Kh2 Bd5\n36. Rh3+ Kg7\n37. Rg3+ Kh8\n38. Ng5 Rxg3\n39. Kxg3 Kg7\n40. Kf4 h6\n41. Nh3 Kf6\n42. f3 Be6\n43. Nf2 h5\n44. Ne4+ Ke7\n45. Kg5 Bd5\n46. Nd2 Bxf3\n47. Nxf3 c4\n48. Nd4 Kd6\n49. Kxh5 Kd5\n50. Nc2 Ke4\n51. Kg4 Kd3\n52. Nb4+ Kd2\n53. Kf3 c3\n54. Ke4 c2\n55. Nxc2 Kxc2\n56. Kd4 Kb3\n57. Kd5 Kxa3\n58. Kc6 b5\n59. Kxc7 b4\n60. Kb6 b3\n61. Kxa6 b2\n62. Kb5 b1=Q+\n63. Kc4 Qb4+\n64. Kd3 Kb3\n65. Ke2 Qc3\n66. Kd1 Qb2\n67. Ke1 Kc3\n68. Kf1 Kd3\n69. Kg1 Ke3\n70. Kh1 Kf3\n71. Kg1 Qg2#`;
       break;
     default:
       break;
