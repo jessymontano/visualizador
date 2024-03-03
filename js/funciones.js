@@ -78,9 +78,42 @@ function pasos() {
   pieza = checarPieza(tokens[i]);
   posicion = limpiarTokens(tokens[i]);
 
-  //TODO: promocion de peon
-  if (pieza == "enroque") {
-    switch (tokens[i]) {
+  if (checarJaque(tokens[i]) || checarJaqueMate(tokens[i])) {
+    var rey = document.querySelector(".rey" + (turno ? "-n" : "-b"));
+    rey.classList.remove("rey" + (turno ? "-n" : "-b"));
+    rey.classList.add("jaque" + (turno ? "-n" : "-b"));
+
+    var otroRey = document.querySelector(".jaque" + (turno ? "-b" : "-n"));
+    if (otroRey !== null && i < tokens.length) {
+      otroRey.classList.remove("jaque" + (turno ? "-b" : "-n"));
+      otroRey.classList.add("rey" + (turno ? "-b" : "-n"));
+    }
+  } else if (document.querySelector(".jaque" + (turno ? "-b" : "-n"))) {
+    var rey = document.querySelector(".jaque" + (turno ? "-b" : "-n"));
+    rey.classList.remove("jaque" + (turno ? "-b" : "-n"));
+    rey.classList.add("rey" + (turno ? "-b" : "-n"));
+  }
+
+  //promocion de peon
+  if(checarPromocion(tokens[i])){
+    var transformar = checarPieza(tokens[i].match(/[A-Z]/)[0]);
+    var columna = parseInt(convertirLetraANumero(posicion[0])) + 1;
+    var renglon = 9 - parseInt(posicion[1]);
+    var celda = tablero.rows[renglon].cells[columna];
+    moverPieza(tablero, turno, "peon", posicion, checarSiCome(tokens[i]));
+    tablero.rows[renglon].cells[columna].classList.remove("peon" + (turno ? "-b" : "-n"));
+    tablero.rows[renglon].cells[columna].classList.add(transformar + (turno ? "-b" : "-n"));
+    out.innerText = `Movimiento:\nTurno: ${
+      turno ? "blancas\n" : "negras\n"
+    }Promoción de peon a ${transformar}`
+  }
+  else if (pieza == "enroque") {
+    if (tokens[i].endsWith("+") || tokens[i].endsWith("#")){
+      posicion = tokens[i].replace(/[\+#]/g, '');
+    }else{
+    posicion = tokens[i];
+    }
+    switch (posicion) {
       case "O-O":
         {
           //enroque corto
@@ -130,22 +163,6 @@ function pasos() {
     }
   } else {
     //poner al rey rojo si está en jaque
-    if (checarJaque(tokens[i]) || checarJaqueMate(tokens[i])) {
-      var rey = document.querySelector(".rey" + (turno ? "-n" : "-b"));
-      rey.classList.remove("rey" + (turno ? "-n" : "-b"));
-      rey.classList.add("jaque" + (turno ? "-n" : "-b"));
-
-      var otroRey = document.querySelector(".jaque" + (turno ? "-b" : "-n"));
-      if (otroRey !== null && i < tokens.length) {
-        otroRey.classList.remove("jaque" + (turno ? "-b" : "-n"));
-        otroRey.classList.add("rey" + (turno ? "-b" : "-n"));
-      }
-    } else if (document.querySelector(".jaque" + (turno ? "-b" : "-n"))) {
-      var rey = document.querySelector(".jaque" + (turno ? "-b" : "-n"));
-      rey.classList.remove("jaque" + (turno ? "-b" : "-n"));
-      rey.classList.add("rey" + (turno ? "-b" : "-n"));
-    }
-
     if (posicion.length > 2) {
       //checar si la posición incluye alguna columna o renglon extra
       moverPiezaAmbigua(
@@ -165,9 +182,13 @@ function pasos() {
       checarSiCome(tokens[i])
         ? `${pieza} se come a ${posicion}`
         : `${pieza} a ${posicion}`
-    } ${checarJaque(tokens[i]) ? ", Jaque" : ""} ${
-      checarJaqueMate(tokens[i]) ? ", Jaque Mate" : ""
     }`;
+  }
+
+  if(checarJaque(tokens[i])){
+    out.innerText += ", Jaque";
+  }else if(checarJaqueMate(tokens[i])){
+    out.innerText += ", Jaque Mate";
   }
 
   //si se come una pieza, eliminar la clase de la pieza comida
@@ -190,7 +211,7 @@ function pasos() {
 async function completo() {
   pasos();
   while (i < tokens.length) {
-    await new Promise((resolve) => setTimeout(resolve, 1000)); //esperar
+    await new Promise((resolve) => setTimeout(resolve, 2000)); //esperar
     pasos();
   }
 }
@@ -263,13 +284,13 @@ function checarJaqueMate(token) {
   return token.endsWith("#");
 }
 
-function checarPromoción(token) {
+function checarPromocion(token) {
   return token.includes("=");
 }
 
 //regresar coordenadas del movimiento sin los caracteres extra
 function limpiarTokens(token) {
-  return token.replace(/x|[A-Z]|[\+#]+/g, "");
+  return token.replace(/x|[A-Z]|[\+#=]+/g, "");
 }
 
 //checar si las coordenadas se salen del tablero
@@ -413,14 +434,14 @@ function obtenerOrigenes(tablero, pieza, turno, renglon, columna, come) {
 
   //posibles origenes de un peon blanco que se mueve normal
   const peonBlancoAvanza = [
-    [columna, renglon + 2],
     [columna, renglon + 1],
+    [columna, renglon + 2]
   ];
 
   //posibles origenes de un peon negro que se mueve normal
   const peonNegroAvanza = [
-    [columna, renglon - 2],
     [columna, renglon - 1],
+    [columna, renglon - 2]
   ];
 
   //agregar los origenes a la lista del peon
