@@ -147,9 +147,9 @@ function pasos() {
     }
 
     if (posicion.length > 2) {
-      //TODO: checar si la posición incluye alguna columna o renglon extra
-      /* moverPiezaAmbigua(tablero, turno, posicion);
-      posicion = posicion.slice(1);*/
+      //checar si la posición incluye alguna columna o renglon extra
+      moverPiezaAmbigua(tablero, pieza, turno, posicion, checarSiCome(tokens[i]));
+      posicion = posicion.slice(1);
     } else {
       moverPieza(tablero, turno, pieza, posicion, checarSiCome(tokens[i]));
     }
@@ -259,7 +259,7 @@ function checarJaqueMate(token) {
 
 //regresar coordenadas del movimiento sin los caracteres extra
 function limpiarTokens(token) {
-  return token.replace(/.*x|[A-Z]|[\+#]+/g, "");
+  return token.replace(/x|[A-Z]|[\+#]+/g, "");
 }
 
 //checar si las coordenadas se salen del tablero
@@ -272,56 +272,45 @@ function fueraDelTablero(coordenadas) {
   );
 }
 
-//TODO: mover una pieza con coordenadas de origen adicionales
-/*
-function moverPiezaAmbigua(tablero, turno, posicion) {
+// mover una pieza con coordenadas de origen adicionales
+function moverPiezaAmbigua(tablero, pieza, turno, posicion, come) {
   var columna = parseInt(convertirLetraANumero(posicion[1])) + 1;
   var renglon = 9 - parseInt(posicion[2]);
   var celda = tablero.rows[renglon].cells[columna];
   var renglonOrigen;
   var columnaOrigen;
-  const origenesCaballo =[
-    [columna - 2, renglon + 1],
-    [columna - 1, renglon + 2],
-    [columna + 2, renglon + 1],
-    [columna + 1, renglon + 2],
-    [columna - 1, renglon - 2],
-    [columna + 1, renglon - 2],
-    [columna + 2, renglon - 1],
-    [columna - 2, renglon - 1],
-  ];
+  const origenes = obtenerOrigenes(tablero, pieza, turno, renglon, columna, come);
   var color = turno ? "-b" : "-n"; //si es turno de las blancas -b, si es turno de las negras -n
   var origen = null;
 
   if (/^\d/.test(posicion)){
-    renglonOrigen = 9- parseInt(posicion.slice(0, 1));
-    for (let i = 0; i < origenesCaballo.length; i++) {
-      var origenCaballo = origenesCaballo[i];
-      if (origenCaballo[1] == renglonOrigen && !fueraDelTablero(origenCaballo)) {
-        origen = tablero.rows[origenCaballo[1]].cells[origenCaballo[0]];
-        if (origen.classList.contains("caballo" + color)) {
-          origen.classList.remove("caballo" + color);
+    renglonOrigen = 9 - parseInt(posicion.slice(0, 1));
+    origenes.forEach(posibleOrigen => {
+      //checar si el posible origen está en el mismo renglón que el del movimiento
+      if (posibleOrigen[1] == renglonOrigen && !fueraDelTablero(posibleOrigen)) {
+        origen = tablero.rows[posibleOrigen[1]].cells[posibleOrigen[0]];
+        if (origen.classList.contains(pieza + color)) {
+          origen.classList.remove(pieza + color);
         }
       }
-    }
+    });
   }
   else if (/^[a-zA-Z]/.test(posicion)){
     columnaOrigen = parseInt(convertirLetraANumero(posicion.slice(0,1))) + 1;
-    for (let i = 0; i < origenesCaballo.length; i++) {
-      var origenCaballo = origenesCaballo[i];
-      if (origenCaballo[0] == columnaOrigen && !fueraDelTablero(origenCaballo)) {
-        origen = tablero.rows[origenCaballo[1]].cells[origenCaballo[0]];
-        if (origen.classList.contains("caballo" + color)) {
-          origen.classList.remove("caballo" + color);
+    origenes.forEach(posibleOrigen => {
+      //checar si el posible origen está en la misma columna que la del movimiento
+      if (posibleOrigen[0] == columnaOrigen && !fueraDelTablero(posibleOrigen)) {
+        origen = tablero.rows[posibleOrigen[1]].cells[posibleOrigen[0]];
+        if (origen.classList.contains(pieza + color)) {
+          origen.classList.remove(pieza + color);
         }
       }
-    }
+    });
   }
 
   //agregar la pieza que se movio
-  celda.classList.add("caballo" + color);
+  celda.classList.add(pieza + color);
 }
-*/
 
 //mover las piezas en el tablero
 function moverPieza(tablero, turno, pieza, posicion, come) {
