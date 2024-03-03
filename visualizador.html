@@ -1,169 +1,174 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Visualizador de Ajedrez</title>
-    <link rel="shortcut icon" href="./img/pixel/reina-b.png" type="image/x-icon">
-    <link rel="stylesheet" href="./css/styles.css">
+    <link
+      rel="shortcut icon"
+      href="./img/pixel/reina-b.png"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="./css/styles.css" />
     <script src="./js/funciones.js"></script>
-</head>
+  </head>
 
-<body onload="iniciar()">
+  <body onload="iniciar()">
     <table id="js-tablero">
-        <tr>
-            <td></td>
-            <td>A</td>
-            <td>B</td>
-            <td>C</td>
-            <td>D</td>
-            <td>E</td>
-            <td>F</td>
-            <td>G</td>
-            <td>H</td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>8</td>
-            <td class="celda"></td>
-            <td class="celda"></td>
-            <td class="celda"></td>
-            <td class="celda"></td>
-            <td class="celda"></td>
-            <td class="celda"></td>
-            <td class="celda"></td>
-            <td class="celda"></td>
-            <td>8</td>
-        </tr>
-        <tr>
-            <td>7</td>
-            <td class="celda"></td>
-            <td class="celda"></td>
-            <td class="celda"></td>
-            <td class="celda"></td>
-            <td class="celda"></td>
-            <td class="celda"></td>
-            <td class="celda"></td>
-            <td class="celda"></td>
-            <td>7</td>
-        </tr>
-        <tr>
-            <td>6</td>
-            <td class="celda"></td>
-            <td class="celda"></td>
-            <td class="celda"></td>
-            <td class="celda"></td>
-            <td class="celda"></td>
-            <td class="celda"></td>
-            <td class="celda"></td>
-            <td class="celda"></td>
-            <td>6</td>
-        </tr>
-        <tr>
-            <td>5</td>
-            <td class="celda"></td>
-            <td class="celda"></td>
-            <td class="celda"></td>
-            <td class="celda"></td>
-            <td class="celda"></td>
-            <td class="celda"></td>
-            <td class="celda"></td>
-            <td class="celda"></td>
-            <td>5</td>
-        </tr>
-        <tr>
-            <td>4</td>
-            <td class="celda"></td>
-            <td class="celda"></td>
-            <td class="celda"></td>
-            <td class="celda"></td>
-            <td class="celda"></td>
-            <td class="celda"></td>
-            <td class="celda"></td>
-            <td class="celda"></td>
-            <td>4</td>
-        </tr>
-        <tr>
-            <td>3</td>
-            <td class="celda"></td>
-            <td class="celda"></td>
-            <td class="celda"></td>
-            <td class="celda"></td>
-            <td class="celda"></td>
-            <td class="celda"></td>
-            <td class="celda"></td>
-            <td class="celda"></td>
-            <td>3</td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td class="celda"></td>
-            <td class="celda"></td>
-            <td class="celda"></td>
-            <td class="celda"></td>
-            <td class="celda"></td>
-            <td class="celda"></td>
-            <td class="celda"></td>
-            <td class="celda"></td>
-            <td>2</td>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td class="celda"></td>
-            <td class="celda"></td>
-            <td class="celda"></td>
-            <td class="celda"></td>
-            <td class="celda"></td>
-            <td class="celda"></td>
-            <td class="celda"></td>
-            <td class="celda"></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>A</td>
-            <td>B</td>
-            <td>C</td>
-            <td>D</td>
-            <td>E</td>
-            <td>F</td>
-            <td>G</td>
-            <td>H</td>
-            <td></td>
-        </tr>
+      <tr>
+        <td></td>
+        <td>A</td>
+        <td>B</td>
+        <td>C</td>
+        <td>D</td>
+        <td>E</td>
+        <td>F</td>
+        <td>G</td>
+        <td>H</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>8</td>
+        <td class="celda"></td>
+        <td class="celda"></td>
+        <td class="celda"></td>
+        <td class="celda"></td>
+        <td class="celda"></td>
+        <td class="celda"></td>
+        <td class="celda"></td>
+        <td class="celda"></td>
+        <td>8</td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td class="celda"></td>
+        <td class="celda"></td>
+        <td class="celda"></td>
+        <td class="celda"></td>
+        <td class="celda"></td>
+        <td class="celda"></td>
+        <td class="celda"></td>
+        <td class="celda"></td>
+        <td>7</td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td class="celda"></td>
+        <td class="celda"></td>
+        <td class="celda"></td>
+        <td class="celda"></td>
+        <td class="celda"></td>
+        <td class="celda"></td>
+        <td class="celda"></td>
+        <td class="celda"></td>
+        <td>6</td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td class="celda"></td>
+        <td class="celda"></td>
+        <td class="celda"></td>
+        <td class="celda"></td>
+        <td class="celda"></td>
+        <td class="celda"></td>
+        <td class="celda"></td>
+        <td class="celda"></td>
+        <td>5</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td class="celda"></td>
+        <td class="celda"></td>
+        <td class="celda"></td>
+        <td class="celda"></td>
+        <td class="celda"></td>
+        <td class="celda"></td>
+        <td class="celda"></td>
+        <td class="celda"></td>
+        <td>4</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td class="celda"></td>
+        <td class="celda"></td>
+        <td class="celda"></td>
+        <td class="celda"></td>
+        <td class="celda"></td>
+        <td class="celda"></td>
+        <td class="celda"></td>
+        <td class="celda"></td>
+        <td>3</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td class="celda"></td>
+        <td class="celda"></td>
+        <td class="celda"></td>
+        <td class="celda"></td>
+        <td class="celda"></td>
+        <td class="celda"></td>
+        <td class="celda"></td>
+        <td class="celda"></td>
+        <td>2</td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td class="celda"></td>
+        <td class="celda"></td>
+        <td class="celda"></td>
+        <td class="celda"></td>
+        <td class="celda"></td>
+        <td class="celda"></td>
+        <td class="celda"></td>
+        <td class="celda"></td>
+        <td>1</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>A</td>
+        <td>B</td>
+        <td>C</td>
+        <td>D</td>
+        <td>E</td>
+        <td>F</td>
+        <td>G</td>
+        <td>H</td>
+        <td></td>
+      </tr>
     </table>
     <div>
-        <select id="js-partidas" onchange="partidas()">
-            <option value="0">---------</option>
-            <option value="1">Partida 1</option>
-            <option value="2">Partida 2</option>
-            <option value="3">Partida 3</option>
-            <option value="4">Partida 4</option>
-            <option value="5">Partida 5</option>
-        </select>
-        <select id="js-tipo-pieza" onchange="cambiarPiezas()">
-            <option value="normal">Normal</option>
-            <option value="paint">Paint</option>
-            <option value="pixel">Pixel Art</option>
-            <option value="mario">Mario</option>
-            <option value="lotr">El Señor de los Anillos</option>
-            <option value="zelda">La Leyenda de Zelda</option>
-        </select>
-        <textarea id="js-texto" cols="70" rows="10"></textarea>
-        <div id="botones">
-            <label for="js-cargar">
-                <input type="file" value="Cargar partida" id="js-cargar" onchange="cargarPartida()">
-                <span>Cargar partida</span>
-            </label>
-            <button id="paso-a-paso" onclick="pasos()">Paso a paso</button>
-            <button id="completo" onclick="completo()">Completo</button>
-            <button id="reiniciar" onclick="reiniciar()">Reiniciar</button>
-        </div>
-        <p id="js-out">Movimiento: <br></p>
-        
+      <select id="js-partidas" onchange="partidas()">
+        <option value="0">---------</option>
+        <option value="1">Partida 1</option>
+        <option value="2">Partida 2</option>
+        <option value="3">Partida 3</option>
+        <option value="4">Partida 4</option>
+        <option value="5">Partida 5</option>
+      </select>
+      <select id="js-tipo-pieza" onchange="cambiarPiezas()">
+        <option value="normal">Normal</option>
+        <option value="paint">Paint</option>
+        <option value="pixel">Pixel Art</option>
+        <option value="mario">Mario</option>
+        <option value="lotr">El Señor de los Anillos</option>
+        <option value="zelda">La Leyenda de Zelda</option>
+      </select>
+      <textarea id="js-texto" cols="70" rows="10"></textarea>
+      <div id="botones">
+        <label for="js-cargar">
+          <input
+            type="file"
+            value="Cargar partida"
+            id="js-cargar"
+            onchange="cargarPartida()"
+          />
+          <span>Cargar partida</span>
+        </label>
+        <button id="paso-a-paso" onclick="pasos()">Paso a paso</button>
+        <button id="completo" onclick="completo()">Completo</button>
+        <button id="reiniciar" onclick="reiniciar()">Reiniciar</button>
+      </div>
+      <p id="js-out">Movimiento:<br /></p>
     </div>
-
-</body>
-
+  </body>
 </html>
