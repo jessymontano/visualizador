@@ -59,11 +59,16 @@ function cargarPartida() {
 //visualizar el juego paso por paso
 function pasos() {
   var tablero = document.getElementById("js-tablero");
+
+  //separar cada token
   tokens = document
     .getElementById("js-texto")
     .value.replace(/\d+\.\s*/g, "")
     .split(/\s+/);
+  
   var pieza = "";
+
+  //texto de movimiento
   var out = document.getElementById("js-out");
 
   if (i >= tokens.length) {
@@ -77,7 +82,7 @@ function pasos() {
     switch (tokens[i]) {
       case "O-O":
         {
-          //enroqe corto
+          //enroque corto
           renglon = turno ? 8 : 1;
           tablero.rows[renglon].cells[5].classList.remove(
             "rey" + (turno ? "-b" : "-n")
@@ -91,6 +96,8 @@ function pasos() {
           tablero.rows[renglon].cells[6].classList.add(
             "torre" + (turno ? "-b" : "-n")
           );
+
+          //actualizar texto de movimiento
           out.innerText = `Movimiento\nTurno: ${
             turno ? "blancas\n" : "negras\n"
           }Enroque corto`;
@@ -98,7 +105,7 @@ function pasos() {
         break;
       case "O-O-O":
         {
-          // enroqe largo
+          // enroque largo
           renglon = turno ? 8 : 1;
           tablero.rows[renglon].cells[5].classList.remove(
             "rey" + (turno ? "-b" : "-n")
@@ -112,6 +119,8 @@ function pasos() {
           tablero.rows[renglon].cells[4].classList.add(
             "torre" + (turno ? "-b" : "-n")
           );
+
+          //actualizar texto de movimiento
           out.innerText = `Movimiento\nTurno: ${
             turno ? "blancas\n" : "negras\n"
           }Enroque largo`;
@@ -119,6 +128,7 @@ function pasos() {
         break;
     }
   } else {
+
     //poner al rey rojo si está en jaque
     if (checarJaque(tokens[i]) || checarJaqueMate(tokens[i])) {
       var rey = document.querySelector(".rey" + (turno ? "-n" : "-b"));
@@ -135,12 +145,16 @@ function pasos() {
       rey.classList.remove("jaque" + (turno ? "-b" : "-n"));
       rey.classList.add("rey" + (turno ? "-b" : "-n"));
     }
-    if (posicion.length > 2 && pieza === "caballo") {
-      moverCaballo(tablero, turno, posicion);
-      posicion = posicion.slice(1);
+
+    if (posicion.length > 2) {
+      //TODO: checar si la posición incluye alguna columna o renglon extra
+      /* moverPiezaAmbigua(tablero, turno, posicion);
+      posicion = posicion.slice(1);*/
     } else {
       moverPieza(tablero, turno, pieza, posicion, checarSiCome(tokens[i]));
     }
+
+    //actualizar texto de movimiento
     out.innerText = `Movimiento:\nTurno: ${turno ? "blancas\n" : "negras\n"}${
       checarSiCome(tokens[i])
         ? `${pieza} se come a ${posicion}`
@@ -149,6 +163,8 @@ function pasos() {
       checarJaqueMate(tokens[i]) ? ", Jaque Mate" : ""
     }`;
   }
+
+  //si se come una pieza, eliminar la clase de la pieza comida
   if (checarSiCome(tokens[i])) {
     var columna = parseInt(convertirLetraANumero(posicion[0])) + 1;
     var renglon = 9 - parseInt(posicion[1]);
@@ -164,10 +180,11 @@ function pasos() {
   i++;
 }
 
+//visualizar partida completa
 async function completo() {
   pasos();
   while (i < tokens.length) {
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    await new Promise((resolve) => setTimeout(resolve, 1000)); //esperar
     pasos();
   }
 }
@@ -240,10 +257,8 @@ function checarJaqueMate(token) {
   return token.endsWith("#");
 }
 
-//regresar nomas las coordenadas sin todo el cochinero
+//regresar coordenadas del movimiento sin los caracteres extra
 function limpiarTokens(token) {
-  if (token.startsWith("N")) {
-  }
   return token.replace(/.*x|[A-Z]|[\+#]+/g, "");
 }
 
@@ -257,7 +272,9 @@ function fueraDelTablero(coordenadas) {
   );
 }
 
-function moverCaballo(tablero, turno, posicion) {
+//TODO: mover una pieza con coordenadas de origen adicionales
+/*
+function moverPiezaAmbigua(tablero, turno, posicion) {
   var columna = parseInt(convertirLetraANumero(posicion[1])) + 1;
   var renglon = 9 - parseInt(posicion[2]);
   var celda = tablero.rows[renglon].cells[columna];
@@ -304,8 +321,9 @@ function moverCaballo(tablero, turno, posicion) {
   //agregar la pieza que se movio
   celda.classList.add("caballo" + color);
 }
+*/
 
-//mover cada pieza esta bien complicado y si lloro
+//mover las piezas en el tablero
 function moverPieza(tablero, turno, pieza, posicion, come) {
   var columna = parseInt(convertirLetraANumero(posicion[0])) + 1;
   var renglon = 9 - parseInt(posicion[1]);
@@ -322,14 +340,15 @@ function moverPieza(tablero, turno, pieza, posicion, come) {
 
   var eliminada = false; //checar si una pieza ya fue eliminada
   var origen = null;
-
+  
+  //por cada posible origen, elegir el mas probable
   origenes.forEach((coordenadasOrigen) => {
     if (!fueraDelTablero(coordenadasOrigen)) {
       origen = tablero.rows[coordenadasOrigen[1]].cells[coordenadasOrigen[0]];
       //eliminar una pieza si es del mismo tipo
       if (origen.classList.contains(pieza + color) && !eliminada) {
         origen.classList.remove(pieza + color);
-        eliminada = true;
+        eliminada = true; //eliminar una sola pieza
       }
     }
   });
@@ -338,7 +357,7 @@ function moverPieza(tablero, turno, pieza, posicion, come) {
   celda.classList.add(pieza + color);
 }
 
-//funcion qe regresa posibles origenes de la pieza que se movio esta bien dificil
+//funcion que regresa posibles origenes de la pieza que se movio
 function obtenerOrigenes(tablero, pieza, turno, renglon, columna, come) {
   //objeto que contiene los posibles origenes de cada tipo de pieza
   const origenes = {
@@ -412,6 +431,7 @@ function obtenerOrigenes(tablero, pieza, turno, renglon, columna, come) {
         columna != j &&
         tablero.rows[renglon].cells[j].classList.contains("celda")
       ) {
+        //no agregar origen si hay un obstaculo (las torres no pueden brincar piezas)
         if (!origenConObstaculo([j, renglon], [columna, renglon], tablero)) {
           origenes["torre"].push([j, renglon]);
           origenes["reina"].push([j, renglon]);
@@ -421,6 +441,7 @@ function obtenerOrigenes(tablero, pieza, turno, renglon, columna, come) {
         renglon != j &&
         tablero.rows[j].cells[columna].classList.contains("celda")
       ) {
+        //no agregar origen si hay un obstaculo (las torres no pueden brincar piezas)
         if (!origenConObstaculo([columna, j], [columna, renglon], tablero)) {
           origenes["torre"].push([columna, j]);
           origenes["reina"].push([columna, j]);
@@ -463,46 +484,49 @@ function obtenerOrigenes(tablero, pieza, turno, renglon, columna, come) {
   return origenes[pieza];
 }
 
+//funcion que checa si hay una pieza entre un posible origen y la celda destino
 function origenConObstaculo(origen, destino, tablero) {
-  const [cOrigen, rOrigen] = origen;
-  const [cDestino, rDestino] = destino;
+  //obtener coordenadas
+  const [columnaOrigen, renglonOrigen] = origen;
+  const [columnaDestino, renglonDestino] = destino;
 
-  // Verificar si hay una pieza en el camino
-  if (rOrigen === rDestino) {
-    const inicio = Math.min(cOrigen, cDestino);
-    const fin = Math.max(cOrigen, cDestino);
+  // verificar si hay una pieza en el camino
+  if (renglonOrigen === renglonDestino) {
+    const inicio = Math.min(columnaOrigen, columnaDestino);
+    const fin = Math.max(columnaOrigen, columnaDestino);
     for (let j = inicio + 1; j < fin; j++) {
-      if (tablero.rows[rOrigen].cells[j].classList.length > 1) {
-        return true;
+      if (tablero.rows[renglonOrigen].cells[j].classList.length > 1) {
+        return true; //sí hay una pieza en el camino
       }
     }
-  } else if (cOrigen === cDestino) {
-    const inicio = Math.min(rOrigen, rDestino);
-    const fin = Math.max(rOrigen, rDestino);
+  } else if (columnaOrigen === columnaDestino) {
+    const inicio = Math.min(renglonOrigen, renglonDestino);
+    const fin = Math.max(renglonOrigen, renglonDestino);
     for (let i = inicio + 1; i < fin; i++) {
-      if (tablero.rows[i].cells[cOrigen].classList.length > 1) {
-        return true;
+      if (tablero.rows[i].cells[columnaOrigen].classList.length > 1) {
+        return true; //sí hay una pieza en el camino
       }
     }
   }
-  // No hay pieza en el camino
+  // no hay pieza en el camino
   return false;
 }
 
+//cambiar el set de piezas
 function cambiarPiezas() {
   var set = document.getElementById("js-tipo-pieza").value;
   const piezas = ["torre", "caballo", "alfil", "rey", "reina", "peon", "jaque"];
-  const colores = ["-b", "-n"];
-  var css = document.styleSheets[0];
+  var css = document.styleSheets[0]; //editar hoja de estilos
 
   for (var i = 0; i < css.cssRules.length; i++) {
     var regla = css.cssRules[i];
-
+    //checar cada regla
     if (regla.selectorText) {
-      // Verifica si la regla corresponde a una clase de pieza
+      // verifica si la regla corresponde a una clase de pieza
       var esPieza = piezas.some((pieza) => regla.selectorText.includes(pieza));
 
       if (esPieza) {
+        //si es jaque agregar imagen de rey con fondo rojo
         if (regla.selectorText.includes("jaque")) {
           regla.style.backgroundImage =
             "url(../img/" +
@@ -511,6 +535,7 @@ function cambiarPiezas() {
             regla.selectorText.substring(8) +
             ".png), radial-gradient(red, rgba(0, 0, 0, 0))";
         } else {
+          //cambiar url de imagen de pieza
           regla.style.backgroundImage =
             "url(../img/" +
             set +
@@ -521,9 +546,11 @@ function cambiarPiezas() {
       }
     }
   }
+  //reiniciar tablero
   iniciar();
 }
 
+//refrescar ventana y seleccionar opcion por defecto en select
 function reiniciar() {
   window.location.reload();
   var select = document.getElementById("tipo-pieza");
