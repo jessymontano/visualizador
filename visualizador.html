@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Visualizador de Ajedrez</title>
+    <link rel="shortcut icon" href="./img/pixel/reina-b.png" type="image/x-icon">
     <link rel="stylesheet" href="./css/styles.css">
     <script src="./js/funciones.js"></script>
 </head>
@@ -133,13 +134,13 @@
         </tr>
     </table>
     <div>
-        <select id="Combo" onchange="partidas()">
+        <select id="js-partidas" onchange="partidas()">
             <option value="0">---------</option>
             <option value="1">Partida 1</option>
             <option value="2">Partida 2</option>
             <option value="3">Partida 3</option>
         </select>
-        <select id="tipo-pieza" onchange="cambiarPiezas()">
+        <select id="js-tipo-pieza" onchange="cambiarPiezas()">
             <option value="normal">Normal</option>
             <option value="paint">Paint</option>
             <option value="pixel">Pixel Art</option>
@@ -147,17 +148,17 @@
             <option value="lotr">El Señor de los Anillos</option>
             <option value="zelda">La Leyenda de Zelda</option>
         </select>
-        <textarea id="texto" cols="70" rows="10"></textarea>
+        <textarea id="js-texto" cols="70" rows="10"></textarea>
         <div id="botones">
             <label for="cargar">
-                <input type="file" value="Cargar partida" id="cargar" onchange="cargarPartida()">
+                <input type="file" value="Cargar partida" id="js-cargar" onchange="cargarPartida()">
                 <span>Cargar partida</span>
             </label>
             <button id="paso-a-paso" onclick="pasos()">Paso a paso</button>
             <button id="completo" onclick="completo()">Completo</button>
             <button id="reiniciar" onclick="reiniciar()">Reiniciar</button>
         </div>
-        <p id="out">Movimiento: <br></p>
+        <p id="js-out">Movimiento: <br></p>
         
     </div>
 

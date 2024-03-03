@@ -48,10 +48,10 @@ function iniciar() {
 
 //leer un archivo con una partida y escribirlo en el text area
 function cargarPartida() {
-  var archivo = document.getElementById("cargar").files[0];
+  var archivo = document.getElementById("js-cargar").files[0];
   var lector = new FileReader();
   lector.onload = function (e) {
-    document.getElementById("texto").value = e.target.result;
+    document.getElementById("js-texto").value = e.target.result;
   };
   lector.readAsText(archivo);
 }
@@ -60,11 +60,11 @@ function cargarPartida() {
 function pasos() {
   var tablero = document.getElementById("js-tablero");
   tokens = document
-    .getElementById("texto")
+    .getElementById("js-texto")
     .value.replace(/\d+\.\s*/g, "")
     .split(/\s+/);
   var pieza = "";
-  var out = document.getElementById("out");
+  var out = document.getElementById("js-out");
 
   if (i >= tokens.length) {
     return; //terminar el juego cuando se alcanza el final de los movimientos
@@ -490,7 +490,7 @@ function origenConObstaculo(origen, destino, tablero) {
 }
 
 function cambiarPiezas() {
-  var set = document.getElementById("tipo-pieza").value;
+  var set = document.getElementById("js-tipo-pieza").value;
   const piezas = ["torre", "caballo", "alfil", "rey", "reina", "peon", "jaque"];
   const colores = ["-b", "-n"];
   var css = document.styleSheets[0];
@@ -534,8 +534,8 @@ function reiniciar() {
 
 //elegir una partida precargada
 function partidas() {
-  var textarea = document.getElementById("texto");
-  var valor = document.getElementById("Combo").value;
+  var textarea = document.getElementById("js-texto");
+  var valor = document.getElementById("js-partidas").value;
 
   switch (valor) {
     case "0":
