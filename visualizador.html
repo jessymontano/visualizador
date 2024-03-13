@@ -9,166 +9,176 @@
       href="./img/pixel/reina-b.png"
       type="image/x-icon"
     />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="./css/styles.css" />
     <script src="./js/funciones.js"></script>
   </head>
 
   <body onload="iniciar()">
-    <table id="js-tablero">
-      <tr>
-        <td></td>
-        <td>A</td>
-        <td>B</td>
-        <td>C</td>
-        <td>D</td>
-        <td>E</td>
-        <td>F</td>
-        <td>G</td>
-        <td>H</td>
-        <td></td>
-      </tr>
-      <tr>
-        <td>8</td>
-        <td class="celda"></td>
-        <td class="celda"></td>
-        <td class="celda"></td>
-        <td class="celda"></td>
-        <td class="celda"></td>
-        <td class="celda"></td>
-        <td class="celda"></td>
-        <td class="celda"></td>
-        <td>8</td>
-      </tr>
-      <tr>
-        <td>7</td>
-        <td class="celda"></td>
-        <td class="celda"></td>
-        <td class="celda"></td>
-        <td class="celda"></td>
-        <td class="celda"></td>
-        <td class="celda"></td>
-        <td class="celda"></td>
-        <td class="celda"></td>
-        <td>7</td>
-      </tr>
-      <tr>
-        <td>6</td>
-        <td class="celda"></td>
-        <td class="celda"></td>
-        <td class="celda"></td>
-        <td class="celda"></td>
-        <td class="celda"></td>
-        <td class="celda"></td>
-        <td class="celda"></td>
-        <td class="celda"></td>
-        <td>6</td>
-      </tr>
-      <tr>
-        <td>5</td>
-        <td class="celda"></td>
-        <td class="celda"></td>
-        <td class="celda"></td>
-        <td class="celda"></td>
-        <td class="celda"></td>
-        <td class="celda"></td>
-        <td class="celda"></td>
-        <td class="celda"></td>
-        <td>5</td>
-      </tr>
-      <tr>
-        <td>4</td>
-        <td class="celda"></td>
-        <td class="celda"></td>
-        <td class="celda"></td>
-        <td class="celda"></td>
-        <td class="celda"></td>
-        <td class="celda"></td>
-        <td class="celda"></td>
-        <td class="celda"></td>
-        <td>4</td>
-      </tr>
-      <tr>
-        <td>3</td>
-        <td class="celda"></td>
-        <td class="celda"></td>
-        <td class="celda"></td>
-        <td class="celda"></td>
-        <td class="celda"></td>
-        <td class="celda"></td>
-        <td class="celda"></td>
-        <td class="celda"></td>
-        <td>3</td>
-      </tr>
-      <tr>
-        <td>2</td>
-        <td class="celda"></td>
-        <td class="celda"></td>
-        <td class="celda"></td>
-        <td class="celda"></td>
-        <td class="celda"></td>
-        <td class="celda"></td>
-        <td class="celda"></td>
-        <td class="celda"></td>
-        <td>2</td>
-      </tr>
-      <tr>
-        <td>1</td>
-        <td class="celda"></td>
-        <td class="celda"></td>
-        <td class="celda"></td>
-        <td class="celda"></td>
-        <td class="celda"></td>
-        <td class="celda"></td>
-        <td class="celda"></td>
-        <td class="celda"></td>
-        <td>1</td>
-      </tr>
-      <tr>
-        <td></td>
-        <td>A</td>
-        <td>B</td>
-        <td>C</td>
-        <td>D</td>
-        <td>E</td>
-        <td>F</td>
-        <td>G</td>
-        <td>H</td>
-        <td></td>
-      </tr>
-    </table>
-    <div>
-      <select id="js-partidas" onchange="partidas()">
-        <option value="0">---------</option>
-        <option value="1">Partida 1</option>
-        <option value="2">Partida 2</option>
-        <option value="3">Partida 3</option>
-        <option value="4">Partida 4</option>
-        <option value="5">Partida 5</option>
-      </select>
-      <select id="js-tipo-pieza" onchange="cambiarPiezas()">
-        <option value="normal">Normal</option>
-        <option value="paint">Paint</option>
-        <option value="pixel">Pixel Art</option>
-        <option value="mario">Mario</option>
-        <option value="lotr">El Señor de los Anillos</option>
-        <option value="zelda">La Leyenda de Zelda</option>
-      </select>
-      <textarea id="js-texto" cols="70" rows="10"></textarea>
-      <div id="botones">
-        <label for="js-cargar">
-          <input
-            type="file"
-            value="Cargar partida"
-            id="js-cargar"
-            onchange="cargarPartida()"
-          />
-          <span>Cargar partida</span>
-        </label>
-        <button id="paso-a-paso" onclick="pasos()">Paso a paso</button>
-        <button id="completo" onclick="completo()">Completo</button>
-        <button id="reiniciar" onclick="reiniciar()">Reiniciar</button>
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="pt-4 col-md-6 col-lg">
+          <table id="js-tablero">
+            <tr>
+              <td></td>
+              <td>A</td>
+              <td>B</td>
+              <td>C</td>
+              <td>D</td>
+              <td>E</td>
+              <td>F</td>
+              <td>G</td>
+              <td>H</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>8</td>
+              <td class="celda"></td>
+              <td class="celda"></td>
+              <td class="celda"></td>
+              <td class="celda"></td>
+              <td class="celda"></td>
+              <td class="celda"></td>
+              <td class="celda"></td>
+              <td class="celda"></td>
+              <td>8</td>
+            </tr>
+            <tr>
+              <td>7</td>
+              <td class="celda"></td>
+              <td class="celda"></td>
+              <td class="celda"></td>
+              <td class="celda"></td>
+              <td class="celda"></td>
+              <td class="celda"></td>
+              <td class="celda"></td>
+              <td class="celda"></td>
+              <td>7</td>
+            </tr>
+            <tr>
+              <td>6</td>
+              <td class="celda"></td>
+              <td class="celda"></td>
+              <td class="celda"></td>
+              <td class="celda"></td>
+              <td class="celda"></td>
+              <td class="celda"></td>
+              <td class="celda"></td>
+              <td class="celda"></td>
+              <td>6</td>
+            </tr>
+            <tr>
+              <td>5</td>
+              <td class="celda"></td>
+              <td class="celda"></td>
+              <td class="celda"></td>
+              <td class="celda"></td>
+              <td class="celda"></td>
+              <td class="celda"></td>
+              <td class="celda"></td>
+              <td class="celda"></td>
+              <td>5</td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td class="celda"></td>
+              <td class="celda"></td>
+              <td class="celda"></td>
+              <td class="celda"></td>
+              <td class="celda"></td>
+              <td class="celda"></td>
+              <td class="celda"></td>
+              <td class="celda"></td>
+              <td>4</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td class="celda"></td>
+              <td class="celda"></td>
+              <td class="celda"></td>
+              <td class="celda"></td>
+              <td class="celda"></td>
+              <td class="celda"></td>
+              <td class="celda"></td>
+              <td class="celda"></td>
+              <td>3</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td class="celda"></td>
+              <td class="celda"></td>
+              <td class="celda"></td>
+              <td class="celda"></td>
+              <td class="celda"></td>
+              <td class="celda"></td>
+              <td class="celda"></td>
+              <td class="celda"></td>
+              <td>2</td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td class="celda"></td>
+              <td class="celda"></td>
+              <td class="celda"></td>
+              <td class="celda"></td>
+              <td class="celda"></td>
+              <td class="celda"></td>
+              <td class="celda"></td>
+              <td class="celda"></td>
+              <td>1</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td>A</td>
+              <td>B</td>
+              <td>C</td>
+              <td>D</td>
+              <td>E</td>
+              <td>F</td>
+              <td>G</td>
+              <td>H</td>
+              <td></td>
+            </tr>
+          </table>
+        </div>
+        <div class="pt-md-5 pt-sm-2 col-md-4 col-lg">
+          <p id="js-out" class="mb-3">Movimiento:<br /></p>
+          <select id="js-partidas" onchange="partidas()">
+            <option value="0">Elegir partida</option>
+            <option value="1">Partida 1</option>
+            <option value="2">Partida 2</option>
+            <option value="3">Partida 3</option>
+            <option value="4">Partida 4</option>
+            <option value="5">Partida 5</option>
+          </select>
+          <select id="js-tipo-pieza" onchange="cambiarPiezas()">
+            <option value="normal">Normal</option>
+            <option value="paint">Paint</option>
+            <option value="pixel">Pixel Art</option>
+            <option value="mario">Mario</option>
+            <option value="lotr">El Señor de los Anillos</option>
+            <option value="zelda">La Leyenda de Zelda</option>
+          </select>
+          <textarea id="js-texto" class="container" cols="70" rows="10"></textarea>
+          <div id="botones">
+            <label for="js-cargar">
+              <input
+                type="file"
+                value="Cargar partida"
+                id="js-cargar"
+                onchange="cargarPartida()"
+              />
+              <span>Cargar partida</span>
+            </label>
+            <button id="paso-a-paso" onclick="pasos()">Paso a paso</button>
+            <button id="completo" onclick="completo()">Completo</button>
+            <button id="reiniciar" onclick="reiniciar()">Reiniciar</button>
+          </div>
+        </div>
       </div>
-      <p id="js-out">Movimiento:<br /></p>
     </div>
   </body>
 </html>

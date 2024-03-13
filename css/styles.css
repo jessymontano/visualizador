@@ -8,13 +8,9 @@ body {
     background-size: auto;
     text-align: center;
     font-family: pixellari, sans-serif;
-    display: flex;
 }
 
 p{
-    width: 30vw;
-    margin-left: 10vw;
-    margin-top: 4vh;
     background-color: rgba(246, 158, 25, 0.749);
     border-radius: 1vh;
     padding: 5vh;
@@ -28,8 +24,8 @@ table {
     margin: 2vh;
     width: 40vw;
     height: 40vw;
-    min-width: 600px;
-    min-height: 600px;
+    min-width: 500px;
+    min-height: 500px;
 }
 
 tr,
@@ -131,19 +127,9 @@ tr:last-child>td {
     color: wheat;
 }
 
-div {
-    display: inline-block;
-}
-div#botones{
-    margin-left: 6vw;
-}
-
 textarea {
-    display: flex;
     margin: 2vh;
-    margin-left: 5vw;
     resize: none;
-    height: 40vh;
     font-family: pixellari, sans-serif;
     background-color: #f4e7d1;
     border: none;
@@ -180,34 +166,4 @@ select:hover, label:hover{
 input[type=file] {
     position: absolute;
     top: -1000px;
-}
-
-@media only screen and (max-width: 920px) {
-    body{
-        display:block;
-    }
-
-    div{
-        float:none;
-        width:90%;
-        justify-content: center;
-    }
-
-    table{
-        width: 90vw;
-        height: 90vw;
-        min-width: 90vw;
-        min-height: 90vw;
-        margin: 7vh auto;
-    }
-
-    p{
-        font-size: x-large;
-        margin-top: 7vh;
-    }
-
-    td.celda{
-        height: 10%;
-        width: 10%;
-    }
 }
