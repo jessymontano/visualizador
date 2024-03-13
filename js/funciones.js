@@ -548,7 +548,7 @@ function origenConObstaculo(origen, destino, tablero) {
 function cambiarPiezas() {
   var set = document.getElementById("js-tipo-pieza").value;
   const piezas = ["torre", "caballo", "alfil", "rey", "reina", "peon", "jaque"];
-  var css = document.styleSheets[0]; //editar hoja de estilos
+  var css = document.styleSheets[1]; //editar hoja de estilos
 
   for (var i = 0; i < css.cssRules.length; i++) {
     var regla = css.cssRules[i];
